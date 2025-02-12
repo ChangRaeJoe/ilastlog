@@ -50,6 +50,12 @@ initUserMap userMap
 
 # 각 행에서 시간, 사용자명을 추출한다.
 # IFS: 나눌 단위지정
+echo "$context" | NODE_ENV=production node test.js 2> /dev/null
+exit 0
+
+#######################################
+###     node를 사용하지 않는 방법   ###
+#######################################
 PRE_IFS=${IFS}
 IFS=$'\n'
 for line in ${context}; do
@@ -57,11 +63,10 @@ for line in ${context}; do
 done
 
 IFS=${PRE_IFS}
-
-
 # append log
 
 # how to print pretty.
+# stdout
 sentence=''
 for key in "${!userMap[@]}"; do
     if [ ${userMap[${key}]} -eq 0 ]; then
@@ -72,7 +77,7 @@ for key in "${!userMap[@]}"; do
     echo ''
 done
 
-#echo -e "$sentence"
+# write
 printf '' > ${iauthPath}
 echo -e "${sentence}" | tee -a ${iauthPath}
 

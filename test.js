@@ -1,6 +1,11 @@
 const os = require("node:os");
 const { DateTime } = require("luxon");
 const readline = require("node:readline");
+console.debug = (msg) => {
+	if (process.env.NODE_ENV == "production") return;
+	console.debug("debug:", msg);
+};
+
 const dummyTexts = [
 	"Feb 10 15:02:37 joe-ka56k login[12345]: pam_unix(login:session) for uuu by uuu",
 	"2025-02-10T15:02:37.027236+09:00 joe-15U480-KA56K login[24943]: pam_unix(login:session): session closed f",
@@ -57,6 +62,7 @@ function printParsed(objArr, filterList) {
 		for (const element of filterList) {
 			text += `${obj[element]}\t`;
 		}
+		console.debug(obj);
 		text += "\n";
 	}
 	console.log(text);
