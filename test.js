@@ -26,7 +26,8 @@ const combinedPatterns = (() => {
 		"(?<timestamp>\\w{3}, \\d{2} \\w{3} \\d{4} \\d{2}:\\d{2}:\\d{2} [+-]\\d{4})",
 	];
 	const logPattern =
-		"(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}(?<info>.*)";
+		// "(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}(?<info>.*)";
+		"(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}.*for user (?<info>.*) .*";
 
 	return timePatterns.map((pattern, idx) => {
 		return new RegExp([pattern, logPattern].join(" "), "gi");
