@@ -39,6 +39,7 @@ That's why I created this command.
 
 - help: how to usage command
 - delimiter: for captured textline
+- hint: to find lines using words
 
 ## Contributing
 

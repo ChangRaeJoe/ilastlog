@@ -10,5 +10,8 @@
 	},
 	"bin": "./ilastlog.sh",
 	"author": "joe",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"commander": "^13.1.0"
+	}
 }

@@ -20,7 +20,6 @@ isStartLog(){
 }
 
 initUserMap(){
-    # 직접 $1 $2, 간접 참조 $(!1) or local -n
     local -n ref=$1
     for name in $(cut -d: -f1 /etc/passwd); do
         ref[${name}]=""
@@ -29,7 +28,6 @@ initUserMap(){
 
 trap cleanup EXIT
 
-# exit 0,1,126을 제외한 숫자를 개발자 마음대로 사용해도 되나
 if [ ! -e ${path} ]; then
     exit 4
 fi
@@ -43,12 +41,12 @@ context=$(grep -iE '\(login:session\): session open' ${path})
 declare -A userMap
 initUserMap userMap
 
-# 각 행에서 시간, 사용자명을 추출한다.
-# IFS: 나눌 단위지정
+# extract fields like info, timestamp per line 
 parsedText="$(echo "$context" | node cli.js 2> /dev/null)"
 
 uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
 ######################################
+# IFS - for delimiter
 PRE_IFS=${IFS}
 IFS=$'\n'
 for line in ${uniqText}; do
@@ -61,7 +59,6 @@ IFS=${PRE_IFS}
 # append log
 
 # how to print pretty.
-# stdout
 sentence=''
 for key in "${!userMap[@]}"; do
     if [ -z ${userMap[$key]} ]; then
@@ -71,6 +68,6 @@ for key in "${!userMap[@]}"; do
     fi
 done
 
-# write
+# write and print
 echo -e "${sentence}" | tee -a ${iauthPath}
 
