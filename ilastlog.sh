@@ -50,7 +50,7 @@ initUserMap userMap
 
 # 각 행에서 시간, 사용자명을 추출한다.
 # IFS: 나눌 단위지정
-parsedText="$(echo "$context" | NODE_ENV=production node test.js 2> /dev/null)"
+parsedText="$(echo "$context" | NODE_ENV=production node ilastlog.js 2> /dev/null)"
 
 uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
 ######################################
