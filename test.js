@@ -27,7 +27,7 @@ const combinedPatterns = (() => {
 	];
 	const logPattern =
 		// "(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}(?<info>.*)";
-		"(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}.*for user (?<info>.*) .*";
+		"(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}.*for user (?<info>.*)\\(.*\\) by.*";
 
 	return timePatterns.map((pattern, idx) => {
 		return new RegExp([pattern, logPattern].join(" "), "gi");
@@ -68,6 +68,15 @@ function printParsed(objArr, filterList) {
 	}
 	console.log(text);
 }
+
+function compareGenerator(key) {
+	return function (a, b) {
+		if (a[key] == b[key]) return 0;
+		else if (a[key] < b[key]) return -1;
+		else return 1;
+	};
+}
+
 // const textArr = 'text\ntext2\n'.split(os.EOL);
 // stamp, foramt
 // for (const text of texts) {
@@ -84,5 +93,8 @@ rl.on("line", (line) => {
 	inputTexts.push(line);
 }).on("close", () => {
 	const parsedArr = captureLog(inputTexts, combinedPatterns);
-	printParsed(parsedArr, ["timestamp", "info"]);
+	const compareName = compareGenerator("info");
+	const compareTimeStamp = compareGenerator("timestamp");
+	const sortedArr = parsedArr.sort(compareTimeStamp).sort(compareName);
+	printParsed(sortedArr, ["info", "timestamp"]);
 });

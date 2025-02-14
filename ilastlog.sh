@@ -50,19 +50,18 @@ initUserMap userMap
 
 # 각 행에서 시간, 사용자명을 추출한다.
 # IFS: 나눌 단위지정
-echo "$context" | NODE_ENV=production node test.js 2> /dev/null
-exit 0
+parsedText="$(echo "$context" | NODE_ENV=production node test.js 2> /dev/null)"
 
-#######################################
-###     node를 사용하지 않는 방법   ###
-#######################################
+echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}'
+######################################
 PRE_IFS=${IFS}
 IFS=$'\n'
-for line in ${context}; do
-    echo ""
+for line in ${parsedText}; do
+    echo ">> $line"
+    # userMap[key]=value
 done
-
 IFS=${PRE_IFS}
+#####################################
 # append log
 
 # how to print pretty.
@@ -74,10 +73,8 @@ for key in "${!userMap[@]}"; do
     else
         sentence=${sentence}$(printf '%-25s%s\\n' $key ${userMap[${key}]})
     fi
-    echo ''
 done
 
 # write
-printf '' > ${iauthPath}
 echo -e "${sentence}" | tee -a ${iauthPath}
 
