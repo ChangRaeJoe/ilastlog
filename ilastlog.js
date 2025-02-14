@@ -1,24 +1,25 @@
 const os = require("node:os");
-const readline = require("node:readline");
+const {
+	time: timePatterns,
+	login: logPattern,
+	custom: customPattern,
+} = require("./pattern.json");
+const pre_debug = console.debug;
 console.debug = (msg) => {
 	if (process.env.NODE_ENV == "production") return;
-	console.debug("debug:", msg);
+	pre_debug("debug:", msg);
 };
 
-const combinedPatterns = (() => {
-	const timePatterns = [
-		"(?<timestamp>\\b\\w{3} \\d{1,2} \\d{2}:\\d{2}:\\d{2}\\b)",
-		"(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}[+-]\\d{2}:\\d{2})",
-		"(?<timestamp>\\w{3}, \\d{2} \\w{3} \\d{4} \\d{2}:\\d{2}:\\d{2} [+-]\\d{4})",
-	];
-	const logPattern =
-		// "(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}(?<info>.*)";
-		"(?<hostname>\\S+) (?<process>.+?(?=\\[)|.+?(?=))[^a-zA-Z0-9](?<pid>\\d{1,7}|)[^a-zA-Z0-9]{1,3}.*for user (?<info>.*)\\(.*\\) by.*";
-
-	return timePatterns.map((pattern, idx) => {
-		return new RegExp([pattern, logPattern].join(" "), "gi");
+const combinedPatterns = ((_timePatterns, _logPattern, _customPattern) => {
+	// timePatterns: regex[], logPatterns: string
+	// priority: customPattern(high), logPattern(low)
+	if (_customPattern.length !== 0) {
+		_logPattern = _customPattern;
+	}
+	return _timePatterns.map((pattern, idx) => {
+		return new RegExp([pattern, _logPattern].join(" "), "gi");
 	});
-})();
+})(timePatterns, logPattern, customPattern);
 
 function captureLog(_texts, regx) {
 	// arg1: str[], arg2: regex[]
@@ -28,6 +29,7 @@ function captureLog(_texts, regx) {
 			for (const matchedObj of text.matchAll(re)) {
 				if (!!matchedObj.groups) {
 					result.push(matchedObj.groups);
+					break;
 				}
 			}
 		}
@@ -40,10 +42,10 @@ function authStringify(objArr, delimiter) {
 	let text = "";
 	for (const obj of objArr) {
 		text += Object.values(obj).join(delimiter);
-		console.debug(obj);
+		// console.debug(obj);
 		text += "\n";
 	}
-	console.log(text);
+	return text;
 }
 
 function compareGenerator(key) {
@@ -59,27 +61,11 @@ function compareGenerator(key) {
 // for (const text of texts) {
 // 	parseTimeStamp(text);
 // }
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-	terminal: false,
-});
-const inputTexts = [];
 
-rl.on("line", (line) => {
-	inputTexts.push(line);
-}).on("close", () => {
-	const parsedArr = captureLog(inputTexts, combinedPatterns);
-	const compareName = compareGenerator("info");
-	const compareTimeStamp = compareGenerator("timestamp");
-	const sortedArr = parsedArr
-		.sort(compareTimeStamp)
-		.sort(compareName)
-		.map((obj, idx) => {
-			return {
-				info: obj.info,
-				timestamp: obj.timestamp,
-			};
-		});
-	authStringify(sortedArr, ",");
-});
+// 내보내기
+module.exports = {
+	combinedPatterns,
+	compareGenerator,
+	captureLog,
+	authStringify,
+};

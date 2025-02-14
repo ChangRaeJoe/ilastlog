@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# auth.log 읽어오기 또는 명령어를 통해 최근날짜부터 읽어오기
-# cmd [-h]
-# stdout format
-# username  date/none
-
 path=/var/log/auth.log
 iauthPath=${HOME}/ilastlog
 
@@ -50,15 +45,15 @@ initUserMap userMap
 
 # 각 행에서 시간, 사용자명을 추출한다.
 # IFS: 나눌 단위지정
-parsedText="$(echo "$context" | NODE_ENV=production node ilastlog.js 2> /dev/null)"
+parsedText="$(echo "$context" | node cli.js 2> /dev/null)"
 
 uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
 ######################################
 PRE_IFS=${IFS}
 IFS=$'\n'
 for line in ${uniqText}; do
-    k=$(echo "$line" | cut -f1 -d',')
-    v=$(echo "$line" | cut -f2 -d',')
+    k=$(echo "$line" | cut -f1 -d'~')
+    v=$(echo "$line" | cut -f2 -d'~')
     userMap[$k]=$v
 done
 IFS=${PRE_IFS}

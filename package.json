@@ -1,14 +1,14 @@
 {
-  "name": "ilastlog",
-  "version": "0.1.0",
-  "description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, i needed personal.",
-  "main": "test.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "joe",
-  "license": "ISC",
-  "dependencies": {
-    "luxon": "^3.5.0"
-  }
+	"name": "ilastlog",
+	"version": "0.1.0",
+	"description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
+	"main": "",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"sample": "node ./sample.js",
+		"start": "NODE_ENV=production node ./cli.js"
+	},
+	"bin": "./ilastlog.sh",
+	"author": "joe",
+	"license": "ISC"
 }
