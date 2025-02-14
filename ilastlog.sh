@@ -28,7 +28,7 @@ initUserMap(){
     # 직접 $1 $2, 간접 참조 $(!1) or local -n
     local -n ref=$1
     for name in $(cut -d: -f1 /etc/passwd); do
-        ref[${name}]=0
+        ref[${name}]=""
     done
 }
 
@@ -52,13 +52,14 @@ initUserMap userMap
 # IFS: 나눌 단위지정
 parsedText="$(echo "$context" | NODE_ENV=production node test.js 2> /dev/null)"
 
-echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}'
+uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
 ######################################
 PRE_IFS=${IFS}
 IFS=$'\n'
-for line in ${parsedText}; do
-    echo ">> $line"
-    # userMap[key]=value
+for line in ${uniqText}; do
+    k=$(echo "$line" | cut -f1 -d',')
+    v=$(echo "$line" | cut -f2 -d',')
+    userMap[$k]=$v
 done
 IFS=${PRE_IFS}
 #####################################
@@ -68,7 +69,7 @@ IFS=${PRE_IFS}
 # stdout
 sentence=''
 for key in "${!userMap[@]}"; do
-    if [ ${userMap[${key}]} -eq 0 ]; then
+    if [ -z ${userMap[$key]} ]; then
         sentence=${sentence}$(printf '%-25s**로그인한 기록이 없습니다**\\n' $key)
     else
         sentence=${sentence}$(printf '%-25s%s\\n' $key ${userMap[${key}]})

@@ -57,12 +57,11 @@ function captureLog(_texts, regx) {
 	return result;
 }
 
-function printParsed(objArr, filterList) {
+// object의 value값들을 특정 문자로 나뉘어진 문자열로 만듦.
+function authStringify(objArr, delimiter) {
 	let text = "";
 	for (const obj of objArr) {
-		for (const element of filterList) {
-			text += `${obj[element]}\t`;
-		}
+		text += Object.values(obj).join(delimiter);
 		console.debug(obj);
 		text += "\n";
 	}
@@ -95,6 +94,14 @@ rl.on("line", (line) => {
 	const parsedArr = captureLog(inputTexts, combinedPatterns);
 	const compareName = compareGenerator("info");
 	const compareTimeStamp = compareGenerator("timestamp");
-	const sortedArr = parsedArr.sort(compareTimeStamp).sort(compareName);
-	printParsed(sortedArr, ["info", "timestamp"]);
+	const sortedArr = parsedArr
+		.sort(compareTimeStamp)
+		.sort(compareName)
+		.map((obj, idx) => {
+			return {
+				info: obj.info,
+				timestamp: obj.timestamp,
+			};
+		});
+	authStringify(sortedArr, ",");
 });
