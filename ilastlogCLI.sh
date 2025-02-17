@@ -35,21 +35,26 @@ if [ $( which bash &> /dev/null; echo "$?" ) -ne 0 ]; then
     exit 3
 fi
 
-# read auth.log filltered grep cmd.
-context=$(grep -iE '\(login:session\): session open' ${path})
 # users init using Map variable
 declare -A userMap
 initUserMap userMap
 
-# extract fields like info, timestamp per line 
-parsedText="$(echo "$context" | node cli.js 2> /dev/null)"
+# read auth.log 
+# extract fields like info, timestamp per line
+authData=$(cat "${path}")
+deli='~'
+hint='(login:session): session open'
+options=(-d $deli --hint "$hint")
 
-uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
+parsedText="$( echo "$authData" | node ilastlogCLI.js "${options[@]}")"
+
+# uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
+
 ######################################
 # IFS - for delimiter
 PRE_IFS=${IFS}
 IFS=$'\n'
-for line in ${uniqText}; do
+for line in ${parsedText}; do
     k=$(echo "$line" | cut -f1 -d'~')
     v=$(echo "$line" | cut -f2 -d'~')
     userMap[$k]=$v
@@ -70,4 +75,3 @@ done
 
 # write and print
 echo -e "${sentence}" | tee -a ${iauthPath}
-

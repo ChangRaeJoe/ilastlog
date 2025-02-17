@@ -4,7 +4,7 @@
 	"description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
 	"main": "",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "cat /var/log/auth.log | node ./zzz.js -d ',' --hint '(login:session): session open'",
 		"sample": "node ./sample.js",
 		"start": "NODE_ENV=production node ./cli.js"
 	},
@@ -12,6 +12,7 @@
 	"author": "joe",
 	"license": "ISC",
 	"dependencies": {
-		"commander": "^13.1.0"
+		"commander": "^13.1.0",
+		"lodash": "^4.17.21"
 	}
 }

@@ -1,9 +1,11 @@
 const os = require("node:os");
+const { captureName } = require("./pattern.json");
 const {
 	time: timePatterns,
 	login: logPattern,
 	custom: customPattern,
 } = require("./pattern.json");
+
 const pre_debug = console.debug;
 console.debug = (msg) => {
 	if (process.env.NODE_ENV == "production") return;
@@ -56,6 +58,44 @@ function compareGenerator(key) {
 	};
 }
 
+function calculate(textArr, _options) {
+	// selete sentence using hint option
+	textArr = textArr.filter((str, idx) => {
+		//here options.hint
+		return str.includes(_options.hint);
+	});
+
+	//caputre
+	const parsedArr = captureLog(textArr, combinedPatterns);
+	// sort and then fillter among capturedNames
+	const compareName = compareGenerator(captureName.name);
+	const compareTimeStamp = compareGenerator(captureName.timestamp);
+	const sortedArr = parsedArr
+		.sort(compareTimeStamp)
+		.sort(compareName)
+		.map((obj, idx) => {
+			return {
+				[captureName.name]: obj.name,
+				[captureName.timestamp]: obj.timestamp,
+			};
+		})
+		// only the latest date
+		.reduceRight((acc, cur) => {
+			let haveName = false;
+			for (const obj of acc) {
+				if (obj.name == cur.name) {
+					haveName = true;
+				}
+			}
+			if (!haveName) {
+				acc.unshift(cur);
+			}
+			return acc;
+		}, []);
+	//here options.delimiter
+	console.log(authStringify(sortedArr, _options.delimiter));
+}
+
 // const textArr = 'text\ntext2\n'.split(os.EOL);
 // stamp, foramt
 // for (const text of texts) {
@@ -68,4 +108,5 @@ module.exports = {
 	compareGenerator,
 	captureLog,
 	authStringify,
+	calculate,
 };
