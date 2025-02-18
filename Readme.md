@@ -63,7 +63,7 @@ yet.
 
 ## License
 
-[ISC]()
+[MIT](https://github.com/ChangRaeJoe/ilastlog?tab=MIT-1-ov-file)
 
 ## Keyword
 
