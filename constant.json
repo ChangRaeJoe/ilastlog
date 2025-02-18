@@ -1,6 +1,0 @@
-{
-	"default_opts": {
-		"DEFAULT_DEL": "~",
-		"DEFAULT_HINT": "(login:session): session open"
-	}
-}

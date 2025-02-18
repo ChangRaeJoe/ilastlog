@@ -1,12 +1,14 @@
+#! /usr/bin/env node
+
 const { program } = require("commander");
 const readline = require("readline");
 const os = require("node:os");
-const { calculate } = require("./utils");
-const { default_opts } = require("./constant.json");
+const { calculate } = require("../utils");
+const constant = require("../constant.js");
 
 // command
-const DEFAULT_DEL = default_opts.DEFAULT_DEL;
-const DEFAULT_HINT = default_opts.DEFAULT_HINT;
+const DEFAULT_DEL = constant.DEFAULT_DEL;
+const DEFAULT_HINT = constant.DEFAULT_HINT;
 
 program
 	.name("ilastlog")

@@ -19,19 +19,30 @@ That's why I created this command.
 
 ## Installation
 
-    $ git clone ... -depth 1
-    $ cd iLastlog && npm install
-    $ ilastlog
-    or
-    $ ./ilastlog.sh
+    $ cd your_project
+    $ npm install --save ilastlog
 
 ## Usage
 
-.
+ilastlog [options] [argText]
+
+### CLI (using Shell)
+
+    $ #  Not supported yet.   #
+
+### CLI (using Node)
+
+    $ ilastlog -h
+    $ ilasatlog
+
+### API
+
+    const { ilastlog } = require("./ilastlogAPI");
+    ilastlog(sampleTexts);
 
 ## Sample
 
-    $ npm run sample
+    $ npm run sample (or node sample.js)
 
 ## Upcoming Features
 
@@ -40,6 +51,11 @@ That's why I created this command.
 - help: how to usage command
 - delimiter: for captured textline
 - hint: to find lines using words
+-
+
+## Docs
+
+yet.
 
 ## Contributing
 
@@ -50,3 +66,5 @@ That's why I created this command.
 [ISC]()
 
 ## Keyword
+
+.

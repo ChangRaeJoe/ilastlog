@@ -45,8 +45,9 @@ authData=$(cat "${path}")
 deli='~'
 hint='(login:session): session open'
 options=(-d $deli --hint "$hint")
+cmd="ilastlog"
 
-parsedText="$( echo "$authData" | node ilastlogCLI.js "${options[@]}")"
+parsedText="$( echo "$authData" | ${cmd} "${options[@]}")"
 
 # uniqText=$(echo "$parsedText" | awk '{data[$1]=$0} END {for (key in data) print data[key]}')
 

@@ -2,13 +2,16 @@
 	"name": "ilastlog",
 	"version": "0.1.0",
 	"description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
-	"main": "",
+	"main": "ilastlogAPI.js",
 	"scripts": {
 		"test": "cat /var/log/auth.log | node ./zzz.js -d ',' --hint '(login:session): session open'",
 		"sample": "node ./sample.js",
 		"start": "NODE_ENV=production node ./cli.js"
 	},
-	"bin": "./ilastlog.sh",
+	"bin": {
+        "ilastlog": "bin/ilastlogCLI.js",
+		"ilastlogSh": "bin/ilastlogCLI.sh"
+        },
 	"author": "joe",
 	"license": "ISC",
 	"dependencies": {
