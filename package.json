@@ -13,7 +13,7 @@
 		"ilastlogSh": "bin/ilastlogCLI.sh"
         },
 	"author": "joe",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"commander": "^13.1.0",
 		"lodash": "^4.17.21"

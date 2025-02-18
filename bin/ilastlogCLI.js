@@ -1,19 +1,29 @@
 #! /usr/bin/env node
 
-const { program } = require("commander");
-const readline = require("readline");
 const os = require("node:os");
+const readline = require("readline");
+
 const { calculate } = require("../utils");
 const constant = require("../constant.js");
+const {
+	name: pkgName,
+	version: pkgVersion,
+	description: pkgDesc,
+} = require("../package.json");
 
-// command
+const { program } = require("commander");
+
+// option's constant
 const DEFAULT_DEL = constant.DEFAULT_DEL;
 const DEFAULT_HINT = constant.DEFAULT_HINT;
 
+// load version into package.json
+
+// command
 program
-	.name("ilastlog")
-	.description("desc")
-	.version("1.0.0", "-v, --version", "current version")
+	.name(pkgName)
+	.description(pkgDesc)
+	.version(pkgVersion, "-v, --version", "current version")
 	.option("--hint <hint>", "To find out per line", DEFAULT_HINT)
 	.option(
 		"-d, --delimiter <delimiter>",
