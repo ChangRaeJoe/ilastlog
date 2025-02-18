@@ -20,7 +20,7 @@ That's why I created this command.
 ## Installation
 
     $ cd your_project
-    $ npm install --save ilastlog
+    $ npm install --global ilastlog
 
 ## Usage
 
