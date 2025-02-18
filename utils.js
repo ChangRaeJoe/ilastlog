@@ -1,6 +1,6 @@
 const os = require("node:os");
 const { CAPTURENAME } = require("./pattern.js");
-const abc = require("./pattern.js");
+const ptn = require("./pattern.js");
 const pre_debug = console.debug;
 console.debug = (msg) => {
 	if (process.env.NODE_ENV == "production") return;
