@@ -38,7 +38,7 @@ ilastlog [options] [argText]
 
 ### API
 
-    const { ilastlog } = require("./ilastlogAPI");
+    const { ilastlog } = require("ilastlog");
     ilastlog(sampleTexts);
 
 ## Sample
@@ -54,9 +54,12 @@ ilastlog [options] [argText]
 - hint: to find lines using words
 -
 
+2. add new command for configure
+3. add options on API
+
 ## Docs
 
-yet.
+[Wiki](https://github.com/ChangRaeJoe/ilastlog/wiki)
 
 ## License
 
