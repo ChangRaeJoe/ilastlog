@@ -57,14 +57,6 @@ ilastlog [options] [argText]
 
 yet.
 
-## Contributing
-
-.
-
 ## License
 
 [MIT](https://github.com/ChangRaeJoe/ilastlog?tab=MIT-1-ov-file)
-
-## Keyword
-
-.
