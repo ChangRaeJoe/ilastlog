@@ -19,9 +19,11 @@ That's why I created this command.
 .
 
 ## Installation
-
-    $ cd your_project
+## CLI
     $ npm install --global ilastlog
+## API
+    $ cd your_project
+    $ npm install ilastlog
 
 ## Usage
 
@@ -35,7 +37,8 @@ ilastlog [options] [argText]
 
     $ ilastlog -h
     $ cat /var/log/auth.log | ilastlog
-
+    or
+    $ ilastlog "timeStamp log context"
 ### API
 
     const { ilastlog } = require("ilastlog");
