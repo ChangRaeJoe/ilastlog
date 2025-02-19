@@ -45,7 +45,7 @@ authData=$(cat "${path}")
 deli='~'
 hint='(login:session): session open'
 options=(-d $deli --hint "$hint")
-cmd="ilastlog"
+cmd="bin/ilastlogCLI.js"
 
 parsedText="$( echo "$authData" | ${cmd} "${options[@]}")"
 
