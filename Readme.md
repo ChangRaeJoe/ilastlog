@@ -34,7 +34,7 @@ ilastlog [options] [argText]
 ### CLI (using Node)
 
     $ ilastlog -h
-    $ ilasatlog
+    $ cat /var/log/auth.log | ilastlog
 
 ### API
 
