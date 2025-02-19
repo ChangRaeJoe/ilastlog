@@ -8,10 +8,10 @@ const sampleTexts = [
 ];
 // 1
 console.log("*".repeat(10));
-ilastlog(sampleTexts, { delimiter: ",,," });
+ilastlog(sampleTexts, { delimiter: ",," });
 // 2
 console.log("*".repeat(10));
-ilastlog(sampleTexts, { hint: "cron" });
+ilastlog(sampleTexts, { hint: "cron", delimiter: "~" });
 // 3
 console.log("*".repeat(10));
 ilastlog(sampleTexts, {});

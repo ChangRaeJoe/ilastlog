@@ -1,6 +1,6 @@
 {
 	"name": "ilastlog",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
 	"contributors": [],
 	"repository": {
@@ -21,7 +21,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"commander": "^13.1.0",
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"printf": "^0.6.1"
 	},
 	"keywords": [
 		"lastlog",

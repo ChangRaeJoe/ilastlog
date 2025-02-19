@@ -1,5 +1,5 @@
 const os = require("node:os");
-const { calculate } = require("./utils");
+const { calculate, OriginPrint, delimiterPrint } = require("./utils");
 const constant = require("./constant.js");
 const _ = require("lodash");
 
@@ -17,7 +17,13 @@ const wrap_calculate = (textArr, _options) => {
 		);
 	}
 
-	return calculate(textArr, _options);
+	const result = calculate(textArr, _options);
+
+	if (_options.delimiter.length < 1) {
+		return OriginPrint(result);
+	} else {
+		return delimiterPrint(result, _options.delimiter);
+	}
 };
 
 module.exports = {
