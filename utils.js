@@ -1,6 +1,7 @@
 const os = require("node:os");
 const { CAPTURENAME } = require("./pattern.js");
 const ptn = require("./pattern.js");
+const printf = require("printf");
 const pre_debug = console.debug;
 console.debug = (msg) => {
 	if (process.env.NODE_ENV == "production") return;
@@ -35,14 +36,29 @@ function captureLog(_texts, regx) {
 }
 
 // object의 value값들을 특정 문자로 나뉘어진 문자열로 만듦.
-function authStringify(objArr, delimiter) {
+function delimiterPrint(infoArr, delimiter) {
 	let text = "";
-	for (const obj of objArr) {
-		text += Object.values(obj).join(delimiter);
-		// console.debug(obj);
-		text += "\n";
+	for (const info of infoArr) {
+		text += printf(
+			"%s%s%s\n",
+			info[CAPTURENAME.name],
+			delimiter,
+			info[CAPTURENAME.timestamp]
+		);
 	}
-	return text;
+	console.log(text);
+}
+function OriginPrint(infoArr) {
+	// Arr: [ {name,timestamp,...}, {} ]
+	let text = "";
+	for (const info of infoArr) {
+		text += printf(
+			"%-25s%s\n",
+			info[CAPTURENAME.name],
+			info[CAPTURENAME.timestamp]
+		);
+	}
+	console.log(text);
 }
 
 function compareGenerator(key) {
@@ -87,8 +103,7 @@ function calculate(textArr, _options) {
 			}
 			return acc;
 		}, []);
-	//here options.delimiter
-	console.log(authStringify(sortedArr, _options.delimiter));
+	return sortedArr;
 }
 
 // const textArr = 'text\ntext2\n'.split(os.EOL);
@@ -102,6 +117,7 @@ module.exports = {
 	combinedPatterns,
 	compareGenerator,
 	captureLog,
-	authStringify,
 	calculate,
+	OriginPrint,
+	delimiterPrint,
 };

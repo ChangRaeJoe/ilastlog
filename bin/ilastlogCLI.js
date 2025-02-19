@@ -3,7 +3,7 @@
 const os = require("node:os");
 const readline = require("readline");
 
-const { calculate } = require("../utils");
+const { calculate, OriginPrint, delimiterPrint } = require("../utils");
 const constant = require("../constant.js");
 const {
 	name: pkgName,
@@ -23,14 +23,15 @@ const DEFAULT_HINT = constant.DEFAULT_HINT;
 program
 	.name(pkgName)
 	.description(pkgDesc)
-	.version(pkgVersion, "-v, --version", "current version")
+	.version(pkgVersion, "-v, --version", "Current version")
+	// .option("--no-all", "Displays only the users who have recently accessed")
 	.option("--hint <hint>", "To find out per line", DEFAULT_HINT)
 	.option(
 		"-d, --delimiter <delimiter>",
-		"sentences added delimiter before stdout",
+		"Sentences added delimiter before stdout",
 		DEFAULT_DEL
 	)
-	.argument("[argText]", "input data", "")
+	.argument("[argText]", "Input data", "")
 	.action(function (argText, options, command) {
 		if (argText.length == 0) {
 			startUsingStdin(options);
@@ -53,7 +54,12 @@ function startUsingStdin(options) {
 	rl.on("line", (line) => {
 		inputTexts.push(line);
 	}).on("close", () => {
-		calculate(inputTexts, options);
+		const resultArr = calculate(inputTexts, options);
+		if (options.delimiter.length < 1) {
+			OriginPrint(resultArr);
+		} else {
+			delimiterPrint(resultArr, options.delimiter);
+		}
 	});
 }
 
@@ -62,5 +68,10 @@ function startUsingArg(argText, options) {
 	for (const text of argText.split(os.EOL)) {
 		inputTexts.push(text);
 	}
-	calculate(inputTexts, options);
+	const resultArr = calculate(inputTexts, options);
+	if (options.delimiter.length < 1) {
+		OriginPrint(resultArr);
+	} else {
+		delimiterPrint(resultArr, options.delimiter);
+	}
 }
