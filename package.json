@@ -5,7 +5,7 @@
 	"contributors": [],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ChangRaeJoe/ilastlog"
+		"url": "git+https://github.com/ChangRaeJoe/ilastlog.git"
 	},
 	"bugs": {},
 	"main": "ilastlogAPI.js",
