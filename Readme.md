@@ -20,11 +20,11 @@ That's why I created this command.
 
 ## 📥 Installation
 
-## CLI
+### CLI
 
     $ npm install --global ilastlog
 
-## API
+### API
 
     $ cd your_project
     $ npm install ilastlog
