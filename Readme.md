@@ -1,11 +1,11 @@
 # iLastlog
 
-## Desc
+## 📝 Desc
 
 the lastlog command on Ubuntu 24.04.1 don't worked.  
 That's why I created this command.
 
-## Requirements
+## 📦 Requirements
 
 - **Node.js**: `>=20.11.1` (version tested: 20.11.1)
 - **npm**: `>=10.2.4` (version tested: 10.2.4)
@@ -14,18 +14,22 @@ That's why I created this command.
 
 ⚠️ 다른 버전에서도 정상적으로 작동할 수 있지만, 공식적으로 테스트된 버전은 위와 같습니다.
 
-## Features
+## ✨ Features
 
 .
 
-## Installation
-## CLI
+## 📥 Installation
+
+### CLI
+
     $ npm install --global ilastlog
-## API
+
+### API
+
     $ cd your_project
     $ npm install ilastlog
 
-## Usage
+## 🚀 Usage
 
 ilastlog [options] [argText]
 
@@ -39,16 +43,23 @@ ilastlog [options] [argText]
     $ cat /var/log/auth.log | ilastlog
     or
     $ ilastlog "timeStamp log context"
+    or
+    $ cat /var/log/auth.log | npx ilastlog
+
 ### API
 
     const { ilastlog } = require("ilastlog");
     ilastlog(sampleTexts);
 
-## Sample
+## 🧪 Sample
 
     $ npm run sample (or node sample.js)
 
-## Upcoming Features
+## 🔧 Configs
+
+.
+
+## 🚀 Upcoming Features
 
 1. command options
 
@@ -60,10 +71,10 @@ ilastlog [options] [argText]
 2. add new command for configure
 3. add options on API
 
-## Docs
+## 📖 Docs
 
 [Wiki](https://github.com/ChangRaeJoe/ilastlog/wiki)
 
-## License
+## 📜 License
 
 [MIT](https://github.com/ChangRaeJoe/ilastlog?tab=MIT-1-ov-file)
