@@ -1,10 +1,11 @@
 #! /usr/bin/env node
+require("module-alias/register");
 
 const os = require("node:os");
 const readline = require("readline");
 
-const { calculate, OriginPrint, delimiterPrint } = require("../utils");
-const constant = require("../constant.js");
+const { calculate, OriginPrint, delimiterPrint } = require("@lib/utils");
+const constant = require("@configs/constant");
 const {
 	name: pkgName,
 	version: pkgVersion,

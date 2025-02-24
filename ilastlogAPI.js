@@ -1,7 +1,10 @@
+require("module-alias/register");
+
 const os = require("node:os");
-const { calculate, OriginPrint, delimiterPrint } = require("./utils");
-const constant = require("./constant.js");
+const { calculate, OriginPrint, delimiterPrint } = require("@lib/utils");
+const constant = require("@configs/constant");
 const _ = require("lodash");
+const { config } = require("node:process");
 
 const wrap_calculate = (textArr, _options) => {
 	// default option init

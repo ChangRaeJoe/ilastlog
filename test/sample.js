@@ -1,4 +1,4 @@
-const { ilastlog } = require("./ilastlogAPI");
+const { ilastlog } = require("../ilastlogAPI");
 
 const sampleTexts = [
 	"Mon, 10 Feb 2025 15:02:37 +0900 joe-1hostname CRON[17340]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)",
