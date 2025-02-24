@@ -1,34 +1,74 @@
 require("module-alias/register");
 
 const os = require("node:os");
-const { calculate, OriginPrint, delimiterPrint } = require("@lib/utils");
+let { calculate, OriginPrint, delimiterPrint } = require("@lib/utils");
 const constant = require("@configs/constant");
 const _ = require("lodash");
-const { config } = require("node:process");
 
-const wrap_calculate = (textArr, _options) => {
-	// default option init
-	const defaults = {
-		delimiter: constant.DEFAULT_DEL,
-		hint: constant.DEFAULT_HINT,
-	};
-	_options = _.defaults(_options, defaults);
-	// isString
-	if (!_.isString(_options.delimiter) || !_.isString(_options.hint)) {
-		console.error(
-			`Not String: value in _options.key ${JSON.stringify(_options)}`
-		);
-	}
+const options = {};
+const defaults = {
+	delimiter: constant.DEFAULT_DEL,
+	hint: constant.DEFAULT_HINT,
+};
+_.defaults(options, defaults);
 
-	const result = calculate(textArr, _options);
+const pre_calculate = calculate;
+calculate = (textArr, _options) => {
+	// set opt
+	setOptions(_options);
 
-	if (_options.delimiter.length < 1) {
+	const result = pre_calculate(textArr, options);
+
+	if (options.delimiter.length < 1) {
 		return OriginPrint(result);
 	} else {
-		return delimiterPrint(result, _options.delimiter);
+		return delimiterPrint(result, options.delimiter);
 	}
 };
+function setGetnerator(toSetKey) {
+	return (opts) => {
+		if (!_.isString(opts[toSetKey])) {
+			return 1;
+		} else {
+			options[toSetKey] = opts[toSetKey];
+			return 0;
+		}
+	};
+}
+
+function setOptions(opts) {
+	opts = _.defaults(opts, options);
+	const setFuncs = [setDelimiter, setHint];
+
+	for (const func of setFuncs) {
+		// if error, return not 1;
+		if (func(opts)) {
+			console.error(`Not String: value in options.key ${JSON.stringify(opts)}`);
+		}
+	}
+}
+function setConfigs(confs) {
+	//timeStamp pattern, log pattern, capture name
+	console.warn("not supported yet");
+	return;
+}
+function getConfigs() {
+	const ptns = require("@configs/pattern");
+	console.warn("not supported yet");
+
+	return ptns;
+}
+
+const getOptions = () => options;
+const setDelimiter = setGetnerator("delimiter");
+const setHint = setGetnerator("hint");
+const getDelimiter = () => options.delimiter;
+const getHint = () => options.hint;
 
 module.exports = {
-	ilastlog: wrap_calculate,
+	ilastlog: calculate,
+	getDelimiter,
+	getHint,
+	setOptions,
+	getOptions,
 };
