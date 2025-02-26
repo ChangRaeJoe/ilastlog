@@ -58,18 +58,19 @@ ilastlog [options] [argText]
 ## 🔧 Configs
 
 .
+## Format
+### supported time format
+    syslog   "MMM dd HH:mm:ss"
+    ISO8601  "yyyy-MM-dd'T'HH:mm:ss.SSSZZ"
+    RFC2822  "EEE, dd MMM yyyy HH:mm:ss ZZ" 
 
 ## 🚀 Upcoming Features
 
 1. command options
-
-- help: how to usage command
-- delimiter: for captured textline
-- hint: to find lines using words
--
-
 2. add new command for configure
+- format add, remove
 3. add options on API
+- format add, remove
 
 ## 📖 Docs
 
