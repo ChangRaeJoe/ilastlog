@@ -2,9 +2,9 @@
 require("module-alias/register");
 
 //import os from "node:os";
-import {calculate, OriginPrint, delimiterPrint} from "./utils";
-import constant from "configs/constant";
-import ptns from "configs/pattern";
+import {calculate, OriginPrint, delimiterPrint} from "@lib/utils";
+import constant from "@configs/constant";
+import ptns from "@configs/pattern";
 import _ from "lodash";
 
 // type def

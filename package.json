@@ -1,47 +1,48 @@
 {
-	"name": "ilastlog",
-	"version": "0.3.0-beta.1",
-	"description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
-	"contributors": [],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ChangRaeJoe/ilastlog.git"
-	},
-	"bugs": {},
-	"main": "ilastlogAPI.js",
-	"scripts": {
-		"sample": "node test/sample.js",
-		"start": "NODE_ENV=production node bin/ilastlogCLI.js"
-	},
-	"bin": {
-		"ilastlog": "bin/ilastlogCLI.js",
-		"ilastlogSh": "bin/ilastlogCLI.sh"
-	},
-	"author": "joe",
-	"license": "MIT",
-	"dependencies": {
-		"commander": "^13.1.0",
-		"lodash": "^4.17.21",
-		"module-alias": "^2.2.3",
-		"printf": "^0.6.1"
-	},
-	"_moduleAliases": {
-		"@root": ".",
-		"@lib": "./lib",
-		"@configs": "./configs"
-	},
-	"keywords": [
-		"lastlog",
-		"Ubuntu",
-		"auth"
-	],
-	"devDependencies": {
-		"@eslint/js": "^9.21.0",
-		"@types/lodash": "^4.17.16",
-		"@types/node": "^22.13.9",
-		"eslint": "^9.21.0",
-		"globals": "^16.0.0",
-		"typescript": "^5.7.3",
-		"typescript-eslint": "^8.25.0"
-	}
+    "name": "ilastlog",
+    "version": "0.3.0-beta.1",
+    "description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
+    "contributors": [],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ChangRaeJoe/ilastlog.git"
+    },
+    "bugs": {},
+    "main": "ilastlogAPI.js",
+    "scripts": {
+        "sample": "node test/sample.js",
+        "start": "NODE_ENV=production node bin/ilastlogCLI.js",
+        "build": "tsc && npx tsc-alias"
+    },
+    "bin": {
+        "ilastlog": "bin/ilastlogCLI.js",
+        "ilastlogSh": "bin/ilastlogCLI.sh"
+    },
+    "author": "joe",
+    "license": "MIT",
+    "dependencies": {
+        "commander": "^13.1.0",
+        "lodash": "^4.17.21",
+        "module-alias": "^2.2.3",
+        "printf": "^0.6.1"
+    },
+    "_moduleAliases": {
+        "@root": ".",
+        "@lib": "./lib",
+        "@configs": "./configs"
+    },
+    "keywords": [
+        "lastlog",
+        "Ubuntu",
+        "auth"
+    ],
+    "devDependencies": {
+        "@eslint/js": "^9.21.0",
+        "@types/lodash": "^4.17.16",
+        "@types/node": "^22.13.9",
+        "eslint": "^9.21.0",
+        "globals": "^16.0.0",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.25.0"
+    }
 }
