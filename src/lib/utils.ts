@@ -1,6 +1,6 @@
 import os from "node:os";
 import ptn from "@configs/pattern.js";
-import {Recode, recode} from "../class/Recode";
+import {Recode, recode} from "@configs/Recode";
 import printf from "printf";
 
 // hooking
@@ -78,10 +78,11 @@ function calculate(textArr, _options) {
         .sort(compareTimeStamp)
         .sort(compareName)
         .map((obj, idx) => {
-            return {
-                [recode.name]: obj.name,
-                [recode.timestamp]: obj.timestamp,
+            const tmp: Recode = {
+                name: obj.name,
+                timestamp: obj.timestamp,
             };
+            return tmp;
         })
         //only the latest date
         .reduceRight<Recode[]>((acc, cur) => {
