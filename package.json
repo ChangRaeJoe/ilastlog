@@ -9,6 +9,7 @@
     },
     "bugs": {},
     "main": "dist/ilastlogAPI.js",
+    "types": "dist/ilastlogAPI.d.ts",
     "scripts": {
         "sample": "node test/sample.js",
         "start": "NODE_ENV=production node dist/bin/ilastlogCLI.js",
