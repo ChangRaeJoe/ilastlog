@@ -14,9 +14,9 @@ const defaults: Option = {
 };
 _.defaults(options, defaults);
 
-const calculateWrapper = (textArr: string[], _options: Option): void => {
+const calculateWrapper = (textArr: string[], opt?: Option): void => {
     // set opt
-    _options = setOptions(_options);
+    const _options = setOptions(opt);
 
     const result = calculate(textArr, _options);
 

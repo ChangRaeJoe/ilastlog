@@ -1,5 +1,5 @@
 // inteface
 export interface Option {
-    delimiter: string;
-    hint: string;
+    delimiter?: string;
+    hint?: string;
 }
