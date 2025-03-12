@@ -8,15 +8,15 @@
         "url": "git+https://github.com/ChangRaeJoe/ilastlog.git"
     },
     "bugs": {},
-    "main": "ilastlogAPI.js",
+    "main": "dist/ilastlogAPI.js",
     "scripts": {
         "sample": "node test/sample.js",
-        "start": "NODE_ENV=production node bin/ilastlogCLI.js",
+        "start": "NODE_ENV=production node dist/bin/ilastlogCLI.js",
         "build": "tsc && tsc-alias",
         "test": "tsc-alias --debug"
     },
     "bin": {
-        "ilastlog": "bin/ilastlogCLI.js",
+        "ilastlog": "dist/bin/ilastlogCLI.js",
         "ilastlogSh": "bin/ilastlogCLI.sh"
     },
     "author": "joe",
