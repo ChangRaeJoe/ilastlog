@@ -1,7 +1,9 @@
 import os from "node:os";
-import ptn from "@configs/pattern.js";
-import {Recode, recode} from "@configs/Recode";
+import ptn from "#configs/pattern.js";
+import {Recode, recode} from "#configs/Recode";
 import printf from "printf";
+
+import {Option} from "#intefaces/option";
 
 // hooking
 const pre_debug = console.debug;
@@ -21,7 +23,7 @@ const combinedPatterns = ((_timePatterns, _logPattern, _customPattern) => {
     });
 })(ptn.TIME_PTN, ptn.LOGIN_PTN, ptn.CUSTOM_PTN);
 
-function captureLog(_texts, regx) {
+function captureLog(_texts: string[], regx: RegExp[]) {
     // arg1: str[], arg2: regex[]
     const result = [];
     for (const text of _texts) {
@@ -37,7 +39,7 @@ function captureLog(_texts, regx) {
     return result;
 }
 // object의 value값들을 특정 문자로 나뉘어진 문자열로 만듦.
-function delimiterPrint(infoArr: Recode[], delimiter) {
+function delimiterPrint(infoArr: Recode[], delimiter: string) {
     let text = "";
     for (const info of infoArr) {
         text += printf("%s%s%s\n", info.name, delimiter, info.timestamp);
@@ -55,14 +57,15 @@ function OriginPrint(infoArr: Recode[]) {
 }
 
 function compareGenerator(key: string) {
-    return function (a, b) {
+    type objectType = Record<string, string>;
+    return function (a: objectType, b: objectType) {
         if (a[key] == b[key]) return 0;
         else if (a[key] < b[key]) return -1;
         else return 1;
     };
 }
 
-function calculate(textArr, _options) {
+function calculate(textArr: string[], _options: Option) {
     // selete sentence using hint option
     textArr = textArr.filter((str, idx) => {
         //here options.hint

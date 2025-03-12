@@ -1,17 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-require("module-alias/register");
-
 //import os from "node:os";
-import {calculate, OriginPrint, delimiterPrint} from "@lib/utils";
-import constant from "@configs/constant";
-import ptns from "@configs/pattern";
+import {calculate, OriginPrint, delimiterPrint} from "#lib/utils";
+import constant from "#configs/constant";
+import ptns from "#configs/pattern";
 import _ from "lodash";
 
 // type def
-interface Option {
-    delimiter: string;
-    hint: string;
-}
+import {Option} from "#intefaces/option.js";
 
 const options: Option = {} as Option;
 const defaults: Option = {
@@ -20,7 +14,7 @@ const defaults: Option = {
 };
 _.defaults(options, defaults);
 
-const calculateWrapper = (textArr, _options: Option): void => {
+const calculateWrapper = (textArr: string[], _options: Option): void => {
     // set opt
     _options = setOptions(_options);
 
@@ -33,8 +27,8 @@ const calculateWrapper = (textArr, _options: Option): void => {
     }
 };
 
-function setGetnerator(toSetKey) {
-    return (opts) => {
+function setGetnerator(toSetKey: keyof Option) {
+    return (opts: Option) => {
         if (!_.isString(opts[toSetKey])) {
             return 1;
         } else {
@@ -44,7 +38,7 @@ function setGetnerator(toSetKey) {
     };
 }
 
-function setOptions(opts) {
+function setOptions(opts: Option) {
     opts = _.defaults(opts, options);
     const setFuncs = [setDelimiter, setHint];
 
@@ -60,7 +54,7 @@ function setOptions(opts) {
     return opts;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function setConfigs(confs) {
+function setConfigs(confs: unknown) {
     //timeStamp pattern, log pattern, capture name
     console.warn("not supported yet");
     return;
@@ -78,8 +72,8 @@ const setHint = setGetnerator("hint");
 const getDelimiter = () => options.delimiter;
 const getHint = () => options.hint;
 
-module.exports = {
-    ilastlog: calculateWrapper,
+export {
+    calculateWrapper as ilastlog,
     getDelimiter,
     getHint,
     setOptions,

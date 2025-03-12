@@ -12,7 +12,8 @@
     "scripts": {
         "sample": "node test/sample.js",
         "start": "NODE_ENV=production node bin/ilastlogCLI.js",
-        "build": "tsc && tsc-alias"
+        "build": "tsc && tsc-alias",
+        "test": "tsc-alias --debug"
     },
     "bin": {
         "ilastlog": "bin/ilastlogCLI.js",
@@ -25,11 +26,6 @@
         "lodash": "^4.17.21",
         "module-alias": "^2.2.3",
         "printf": "^0.6.1"
-    },
-    "_moduleAliases": {
-        "@root": ".",
-        "@lib": "./lib",
-        "@configs": "./configs"
     },
     "keywords": [
         "lastlog",

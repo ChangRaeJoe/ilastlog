@@ -3,14 +3,15 @@
 import os from "node:os";
 import readline from "readline";
 
-import {calculate, OriginPrint, delimiterPrint} from "@lib/utils.js";
-import constant from "@configs/constant.js";
+import {Option} from "#intefaces/option.js";
+
+import {calculate, OriginPrint, delimiterPrint} from "#lib/utils.js";
+import constant from "#configs/constant.js";
 import {
     name as pkgName,
     version as pkgVersion,
     description as pkgDesc,
-} from "@root/package.json";
-
+} from "#root/package.json";
 import {program} from "commander";
 
 // option's constant
@@ -32,7 +33,7 @@ program
         DEFAULT_DEL,
     )
     .argument("[argText]", "Input data", "")
-    .action(function (argText, options, command) {
+    .action(function (argText, options: Option, command) {
         if (argText.length == 0) {
             startUsingStdin(options);
         } else {
@@ -43,13 +44,13 @@ program
 program.parse();
 
 //stdin, stdout, stderr
-function startUsingStdin(options) {
+function startUsingStdin(options: Option) {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
         terminal: false,
     });
-    const inputTexts = [];
+    const inputTexts: string[] = [];
 
     rl.on("line", (line) => {
         inputTexts.push(line);
@@ -63,7 +64,7 @@ function startUsingStdin(options) {
     });
 }
 
-function startUsingArg(argText, options) {
+function startUsingArg(argText: string, options: Option) {
     const inputTexts = [];
     for (const text of argText.split(os.EOL)) {
         inputTexts.push(text);
