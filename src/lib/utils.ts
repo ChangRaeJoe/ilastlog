@@ -3,7 +3,7 @@ import ptn from "#configs/pattern.js";
 import {Recode, recode} from "#configs/Recode";
 import printf from "printf";
 
-import {Option} from "#intefaces/option";
+import {Option} from "#intefaces/index";
 
 // hooking
 const pre_debug = console.debug;

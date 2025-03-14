@@ -1,11 +1,11 @@
 //import os from "node:os";
-import {calculate, OriginPrint, delimiterPrint} from "#lib/utils";
+import {Util} from "#lib/index";
 import constant from "#configs/constant";
 import ptns from "#configs/pattern";
 import _ from "lodash";
 
 // type def
-import {Option} from "#intefaces/option.js";
+import {Option} from "#intefaces/index";
 
 const options: Option = {} as Option;
 const defaults: Option = {
@@ -18,12 +18,12 @@ const calculateWrapper = (textArr: string[], opt?: Option): void => {
     // set opt
     const _options = setOptions(opt);
 
-    const result = calculate(textArr, _options);
+    const result = Util.calculate(textArr, _options);
 
     if (_options.delimiter.length < 1) {
-        return OriginPrint(result);
+        return Util.OriginPrint(result);
     } else {
-        return delimiterPrint(result, _options.delimiter);
+        return Util.delimiterPrint(result, _options.delimiter);
     }
 };
 

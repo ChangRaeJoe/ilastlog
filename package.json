@@ -8,8 +8,8 @@
         "url": "git+https://github.com/ChangRaeJoe/ilastlog.git"
     },
     "bugs": {},
-    "main": "dist/ilastlogAPI.js",
-    "types": "dist/ilastlogAPI.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "sample": "node test/sample.js",
         "start": "NODE_ENV=production node dist/bin/ilastlogCLI.js",
@@ -24,9 +24,11 @@
     "license": "MIT",
     "dependencies": {
         "commander": "^13.1.0",
+        "load-json-file": "^7.0.1",
         "lodash": "^4.17.21",
         "module-alias": "^2.2.3",
-        "printf": "^0.6.1"
+        "printf": "^0.6.1",
+        "write-json-file": "^6.0.0"
     },
     "keywords": [
         "lastlog",

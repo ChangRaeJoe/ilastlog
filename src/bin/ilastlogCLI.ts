@@ -3,9 +3,9 @@
 import os from "node:os";
 import readline from "readline";
 
-import {Option} from "#intefaces/option.js";
+import {Option} from "#intefaces/index";
 
-import {calculate, OriginPrint, delimiterPrint} from "#lib/utils.js";
+import {Util} from "#lib/index";
 import constant from "#configs/constant.js";
 import {
     name as pkgName,
@@ -55,11 +55,12 @@ function startUsingStdin(options: Option) {
     rl.on("line", (line) => {
         inputTexts.push(line);
     }).on("close", () => {
-        const resultArr = calculate(inputTexts, options);
+        const resultArr = Util.calculate(inputTexts, options);
+        console.log("result:", resultArr);
         if (options.delimiter.length < 1) {
-            OriginPrint(resultArr);
+            Util.OriginPrint(resultArr);
         } else {
-            delimiterPrint(resultArr, options.delimiter);
+            Util.delimiterPrint(resultArr, options.delimiter);
         }
     });
 }
@@ -69,10 +70,10 @@ function startUsingArg(argText: string, options: Option) {
     for (const text of argText.split(os.EOL)) {
         inputTexts.push(text);
     }
-    const resultArr = calculate(inputTexts, options);
+    const resultArr = Util.calculate(inputTexts, options);
     if (options.delimiter.length < 1) {
-        OriginPrint(resultArr);
+        Util.OriginPrint(resultArr);
     } else {
-        delimiterPrint(resultArr, options.delimiter);
+        Util.delimiterPrint(resultArr, options.delimiter);
     }
 }
