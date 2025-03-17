@@ -1,9 +1,9 @@
-import os from "node:os";
 import ptn from "#configs/pattern.js";
 import {Recode, recode} from "#configs/Recode";
 import printf from "printf";
 
 import {Option} from "#intefaces/index";
+import {appendFile, appendFileAsync, Data} from "./fileManger";
 
 // hooking
 const pre_debug = console.debug;
@@ -39,6 +39,14 @@ function captureLog(_texts: string[], regx: RegExp[]) {
     return result;
 }
 // object의 value값들을 특정 문자로 나뉘어진 문자열로 만듦.
+function Print(infoArr: Recode[], _options: Option) {
+    if (_options.delimiter.length < 1) {
+        OriginPrint(infoArr);
+    } else {
+        delimiterPrint(infoArr, _options.delimiter);
+    }
+}
+
 function delimiterPrint(infoArr: Recode[], delimiter: string) {
     let text = "";
     for (const info of infoArr) {
@@ -54,6 +62,25 @@ function OriginPrint(infoArr: Recode[]) {
     }
 
     console.log(text);
+}
+//
+function WriteToFile(infoArr: Recode[], useSave: boolean) {
+    // 데이터 구조 변경작업
+    if (useSave == false) return;
+    const data: Data = infoArr.reduce((prev, curv) => {
+        prev[curv.name] = curv.timestamp;
+        return prev;
+    }, {} as Data);
+    return appendFile(data);
+}
+function WriteToFileAsync(infoArr: Recode[], useSave: boolean) {
+    if (useSave == false) return Promise.resolve();
+
+    const data: Data = infoArr.reduce((prev, curv) => {
+        prev[curv.name] = curv.timestamp;
+        return prev;
+    }, {} as Data);
+    return appendFileAsync(data);
 }
 
 function compareGenerator(key: string) {
@@ -115,6 +142,7 @@ export {
     compareGenerator,
     captureLog,
     calculate,
-    OriginPrint,
-    delimiterPrint,
+    Print,
+    WriteToFile,
+    WriteToFileAsync,
 };

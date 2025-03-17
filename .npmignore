@@ -138,3 +138,4 @@ out
 # Custom
 src/
 dist/**/*.map
+data/lastlog.json

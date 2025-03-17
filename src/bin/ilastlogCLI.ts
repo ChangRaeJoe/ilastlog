@@ -32,6 +32,7 @@ program
         "Sentences added delimiter before stdout",
         DEFAULT_DEL,
     )
+    .option("--no-save", "Don't save the results log")
     .argument("[argText]", "Input data", "")
     .action(function (argText, options: Option, command) {
         if (argText.length == 0) {
@@ -56,12 +57,8 @@ function startUsingStdin(options: Option) {
         inputTexts.push(line);
     }).on("close", () => {
         const resultArr = Util.calculate(inputTexts, options);
-        console.log("result:", resultArr);
-        if (options.delimiter.length < 1) {
-            Util.OriginPrint(resultArr);
-        } else {
-            Util.delimiterPrint(resultArr, options.delimiter);
-        }
+        Util.Print(resultArr, options);
+        Util.WriteToFile(resultArr, options.save);
     });
 }
 
@@ -71,9 +68,6 @@ function startUsingArg(argText: string, options: Option) {
         inputTexts.push(text);
     }
     const resultArr = Util.calculate(inputTexts, options);
-    if (options.delimiter.length < 1) {
-        Util.OriginPrint(resultArr);
-    } else {
-        Util.delimiterPrint(resultArr, options.delimiter);
-    }
+    Util.Print(resultArr, options);
+    Util.WriteToFile(resultArr, options.save);
 }

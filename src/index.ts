@@ -11,36 +11,41 @@ const options: Option = {} as Option;
 const defaults: Option = {
     delimiter: constant.DEFAULT_DEL,
     hint: constant.DEFAULT_HINT,
+    save: constant.DEFAULT_SAVE,
 };
 _.defaults(options, defaults);
 
-const calculateWrapper = (textArr: string[], opt?: Option): void => {
+const calculateWrapper = (textArr: string[], opt?: Option) => {
     // set opt
     const _options = setOptions(opt);
 
     const result = Util.calculate(textArr, _options);
 
-    if (_options.delimiter.length < 1) {
-        return Util.OriginPrint(result);
-    } else {
-        return Util.delimiterPrint(result, _options.delimiter);
-    }
+    Util.Print(result, _options);
+
+    Util.WriteToFile(result, _options.save);
+};
+const calculateWrapperAsync = (textArr: string[], opt?: Option) => {
+    // set opt
+    const _options = setOptions(opt);
+
+    const result = Util.calculate(textArr, _options);
+
+    Util.Print(result, _options);
+
+    return Util.WriteToFileAsync(result, _options.save);
 };
 
-function setGetnerator(toSetKey: keyof Option) {
+function setGetnerator<T extends keyof Option>(toSetKey: T) {
     return (opts: Option) => {
-        if (!_.isString(opts[toSetKey])) {
-            return 1;
-        } else {
-            options[toSetKey] = opts[toSetKey];
-            return 0;
-        }
+        options[toSetKey] = opts[toSetKey];
+        return 0;
     };
 }
 
 function setOptions(opts: Option) {
     opts = _.defaults(opts, options);
-    const setFuncs = [setDelimiter, setHint];
+    const setFuncs = [setDelimiter, setHint, setSave];
 
     // setting using setxxx function
     for (const func of setFuncs) {
@@ -69,13 +74,14 @@ function getConfigs() {
 const getOptions = () => options;
 const setDelimiter = setGetnerator("delimiter");
 const setHint = setGetnerator("hint");
+const setSave = setGetnerator("save");
 const getDelimiter = () => options.delimiter;
 const getHint = () => options.hint;
+const getSave = () => options.save;
 
 export {
     calculateWrapper as ilastlog,
-    getDelimiter,
-    getHint,
+    calculateWrapperAsync as ilastlogAsync,
     setOptions,
     getOptions,
 };
