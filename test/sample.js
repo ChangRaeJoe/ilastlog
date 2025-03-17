@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const {ilastlog, setOptions} = require("../dist/ilastlogAPI");
+const {ilastlog, setOptions, ilastlogAsync} = require("../dist/index.js");
 
 const sampleTexts = [
     "Mon, 10 Feb 2025 15:02:37 +0900 joe-1hostname CRON[17340]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)",
@@ -30,8 +30,14 @@ ilastlog(sampleTexts, {hint: "cron", delimiter: "~"});
 console.log("*".repeat(10));
 ilastlog(sampleTexts, {});
 //4
-console.log("*".repeat(10));
+
+console.log("Using setOptions()");
 setOptions({hint: "cron", delimiter: ""});
+console.log("*".repeat(10), "sync");
 ilastlog(sampleTexts);
 
-//5
+// 5: async
+console.log("*".repeat(10), "Async");
+ilastlogAsync(sampleTexts).then(() => {
+    console.log("callback");
+});
