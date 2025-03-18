@@ -10,7 +10,7 @@ That's why I created this command.
 -   **Node.js**: `>=20.11.1` (version tested: 20.11.1)
 -   **npm**: `>=10.2.4` (version tested: 10.2.4)
 -   **Bash**: `>=5.2.21` (version tested: 5.2.21)
--   **Not supported Windows OS**
+-   **Not supported Windows OS, Mac**
 
 ⚠️ 다른 버전에서도 정상적으로 작동할 수 있지만, 공식적으로 테스트된 버전은 위와 같습니다.
 
@@ -72,15 +72,11 @@ ilastlog [options] [argText]
 
 [sample](https://github.com/ChangRaeJoe/ilastlog/blob/main/test/sample.js)
 
-## Save File Path (on Bash)
+## Save File Path
 
-### Local
+### Linux
 
-    $ cat your_project/node_modules/ilastlog/data/lastlog.json
-
-### global
-
-    $ cat /usr/local/lib/node_modules/ilastlog/data/lastlog.json
+    $ cat ~/.local/share/ilastlog-nodejs/lastlog.json
 
 ## 🔧 Configs
 
@@ -96,14 +92,7 @@ ilastlog [options] [argText]
 
 ## 🚀 Upcoming Features
 
-1. command options
-2. add new command for configure
-
--   format add, remove
-
-3. add options on API
-
--   format add, remove
+-   Support for customizable time format settings will be added in a future update.
 
 ## 📖 Docs
 
