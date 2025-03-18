@@ -1,6 +1,6 @@
 {
     "name": "ilastlog",
-    "version": "0.3.0-beta.3",
+    "version": "0.3.0",
     "description": "alternative lastlog because of Ubuntu 24.04.1. The distros have had the libpam excluding lastlog.so. therefore, I personally needed.",
     "contributors": [],
     "repository": {
