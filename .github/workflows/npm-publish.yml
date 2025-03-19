@@ -23,7 +23,7 @@ jobs:
                   cache: pnpm
               # To be added for cache.
             - name: Install depenencies
-              run: pnpm install --prod --frozen-lockfile
+              run: pnpm install  --frozen-lockfile
             #- name: Test
             # run: pnpm test
             - name: Build
@@ -40,7 +40,7 @@ jobs:
                   registry-url: https://registry.npmjs.org/
               # To be added for cache.
             - name: Install depenencies
-              run: pnpm install --prod --frozen-lockfile
+              run: pnpm install --frozen-lockfile
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
