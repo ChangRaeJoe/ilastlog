@@ -46,6 +46,8 @@ jobs:
               # To be added for cache.
             - name: Install depenencies
               run: pnpm install --frozen-lockfile
+            - name: Build
+              run: pnpm build
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
